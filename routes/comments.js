@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Comment = require('../models/comment')
 
+//retrieves all comments for a specific post
  router.get('/all/:id', async (req, res) => {
     const comments = await Comment.find({'postId': req.params.id})
     try{
@@ -12,7 +13,9 @@ const Comment = require('../models/comment')
     }
  })
 
+ //publishes comment to a specific post
  router.post('/add', async (req, res) => {
+     //creating comment object to add
      const comment = new Comment({
          postId: req.body.postId,
          userId: req.body.userId,
@@ -29,6 +32,7 @@ const Comment = require('../models/comment')
      }
  })
 
+ //delete a specific comment
  router.delete('/delete/:id', async (req, res) => {
      const comment = Comment.findById(req.params.id)
      try{
@@ -40,7 +44,9 @@ const Comment = require('../models/comment')
      }
  })
 
+ //edit specific comment
  router.patch('/edit/:id', async (req, res) => {
+     //finding comment and updating the content
      const comment = await Comment.findByIdAndUpdate(req.params.id, {'content': req.body.content})
      try{
          await comment.save()

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+//defining comment model
 const commentSchema = new mongoose.Schema({
     postId: {
         type: String,
